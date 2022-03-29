@@ -15,9 +15,14 @@ const TaskSchema = mongoose.Schema(
       ref: 'Column',
       required: true,
     },
-    idUser: {
+    idSection: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Section',
+      required: true,
+    },
+    idMember: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Member',
       required: true,
     },
   },
