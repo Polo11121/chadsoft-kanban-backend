@@ -10,6 +10,10 @@ const columnSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    numberOfTasks: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );
