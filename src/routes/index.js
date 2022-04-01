@@ -6,6 +6,7 @@ import { columnRouter } from './column.routes';
 import { memberRouter } from './members.routes';
 import { sectionRouter } from './section.routes';
 import { taskRouter } from './tasks.routes';
+import { userRoutes } from './user.routes';
 
 const router = Router();
 
@@ -15,5 +16,6 @@ taskRouter(router);
 columnRouter(router);
 sectionRouter(router);
 memberRouter(router);
+userRoutes(router);
 arrayColumnsRouter(router);
 export default router;
