@@ -9,6 +9,13 @@
     "node": "14.17.6"
   },
   "description": "",
+  "engines": {
+    "node": "^14",
+    "yarn": "3.0.2"
+  },
+  "volta": {
+    "node": "14.17.6"
+  },
   "main": "index.js",
   "scripts": {
     "build": "yarn build",
