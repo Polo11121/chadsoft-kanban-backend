@@ -4,7 +4,7 @@
   "description": "",
   "engines": {
     "node": "^14",
-    "yarn": "1.x"
+    "yarn": "3.0.2"
   },
   "volta": {
     "node": "14.17.6"
