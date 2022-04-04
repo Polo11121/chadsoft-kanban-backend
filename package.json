@@ -1,13 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "engines": {
-    "node": "^14",
-    "yarn": "1.x"
-  },
-  "volta": {
-    "node": "14.17.6"
-  },
   "description": "",
   "engines": {
     "node": "^14",
