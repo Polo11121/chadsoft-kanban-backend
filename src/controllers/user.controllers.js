@@ -11,7 +11,7 @@ export const createUser = async (data) => {
 
   const userExist = await User.find({ email: data.email });
 
-  if (userExist[0]) return { status: 'invalid', message: 'Email already exists' };
+  if (userExist[0]) return { status: 'invalid', message: 'Email is already used' };
 
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(data.password, salt);
