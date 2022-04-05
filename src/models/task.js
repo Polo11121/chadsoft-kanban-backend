@@ -22,7 +22,7 @@ const TaskSchema = mongoose.Schema(
     },
     idMember: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: 'Member',
+      ref: 'User',
       required: true,
     },
   },

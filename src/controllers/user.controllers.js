@@ -18,7 +18,6 @@ export const createUser = async (data) => {
   try {
     const user = await User.create({
       name: data.name,
-      surname: data.surname,
       photo: data.photo,
       email: data.email,
       password: hashedPassword,
@@ -49,7 +48,7 @@ export const editUser = async (data, id) => {
   const { error } = editValidation(data);
   if (error) return { status: 'invalid', message: error.details[0].message };
 
-  return userUpdated({ name: data.name, surname: data.surname, photo: data.photo }, id);
+  return userUpdated({ name: data.name, photo: data.photo }, id);
 };
 
 export const editPassword = async (data, id) => {

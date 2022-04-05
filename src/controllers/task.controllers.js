@@ -39,12 +39,20 @@ export const deleteTask = async (id) => {
   return { message: 'Task was deleted.' };
 };
 
-export const addMember = async (data, id) => {
-  const taskObject = await Task.find({ _id: id });
-  const memberArray = taskObject[0].idMember;
-  const memberExist = memberArray.includes(data.idMember);
+//
+//
+//
+//
+//
+//
+//
 
-  if (memberExist) return { status: 'invalid', message: 'Member already added' };
+export const addUser = async (data, id) => {
+  const taskObject = await Task.find({ _id: id });
+  const userArray = taskObject[0].idMember;
+  const userExist = userArray.includes(data.idMember);
+
+  if (userExist) return { status: 'invalid', message: 'User already added' };
 
   try {
     const task = await Task.findOneAndUpdate(
@@ -61,7 +69,7 @@ export const addMember = async (data, id) => {
   }
 };
 
-export const deleteMember = async (data, id) => {
+export const deleteUser = async (data, id) => {
   try {
     const task = await Task.findOneAndUpdate(
       {

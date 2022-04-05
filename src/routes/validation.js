@@ -5,10 +5,6 @@ const validateField = {
     'string.empty': `Name must contain value`,
     'any.required': `Name is a required field`,
   }),
-  surname: Joi.string().messages({
-    'string.empty': `Surname must contain value`,
-    'any.required': `Surname is a required field`,
-  }),
   email: Joi.string().email().messages({
     'string.email': `Please enter a valid email address.`,
     'string.empty': `Email must contain value`,
@@ -24,7 +20,6 @@ const validateField = {
 export const registerValidation = (data) => {
   const schemaUser = Joi.object({
     name: validateField.name.required(),
-    surname: validateField.surname.required(),
     photo: Joi.string(),
     email: validateField.email.required(),
     password: validateField.password,
@@ -45,7 +40,6 @@ export const loginValidation = (data) => {
 export const editValidation = (data) => {
   const schemaUser = Joi.object({
     name: validateField.name,
-    surname: validateField.surname,
     photo: Joi.string(),
   });
 
