@@ -13,4 +13,4 @@ const ArrayColumnsSchema = mongoose.Schema(
 
 const ArrayColumns = mongoose.model('ArrayColumns', ArrayColumnsSchema);
 
-export default ArrayColumns;
+module.exports = ArrayColumns;

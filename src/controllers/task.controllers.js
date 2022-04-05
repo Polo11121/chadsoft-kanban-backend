@@ -1,6 +1,6 @@
-import Task from '../models/task';
+const Task = require('../models/task');
 
-export const createTask = async (data) => {
+const createTask = async (data) => {
   try {
     const task = new Task(data);
     await task.save();
@@ -11,7 +11,7 @@ export const createTask = async (data) => {
   }
 };
 
-export const updateTask = async (data, id) => {
+const updateTask = async (data, id) => {
   try {
     const task = await Task.findOneAndUpdate(
       {
@@ -27,7 +27,7 @@ export const updateTask = async (data, id) => {
   }
 };
 
-export const deleteTask = async (id) => {
+const deleteTask = async (id) => {
   const task = await Task.findOneAndDelete({
     _id: id,
   });
@@ -39,15 +39,7 @@ export const deleteTask = async (id) => {
   return { message: 'Task was deleted.' };
 };
 
-//
-//
-//
-//
-//
-//
-//
-
-export const addUser = async (data, id) => {
+const addUser = async (data, id) => {
   const taskObject = await Task.find({ _id: id });
   const userArray = taskObject[0].idMember;
   const userExist = userArray.includes(data.idMember);
@@ -69,7 +61,7 @@ export const addUser = async (data, id) => {
   }
 };
 
-export const deleteUser = async (data, id) => {
+const deleteUser = async (data, id) => {
   try {
     const task = await Task.findOneAndUpdate(
       {
@@ -84,3 +76,5 @@ export const deleteUser = async (data, id) => {
     return { status: 'invalid', message: err };
   }
 };
+
+module.exports = { createTask, updateTask, deleteTask, addUser, deleteUser };

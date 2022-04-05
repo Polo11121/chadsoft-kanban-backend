@@ -1,6 +1,6 @@
-import ArrayColumns from '../models/arrayColumns';
+const ArrayColumns = require('../models/arrayColumns');
 
-export const createColumns = async (data) => {
+const createColumns = async (data) => {
   try {
     const column = new ArrayColumns(data);
     await column.save();
@@ -11,7 +11,7 @@ export const createColumns = async (data) => {
   }
 };
 
-export const updateArrayColumns = async (data, id) => {
+const updateArrayColumns = async (data, id) => {
   try {
     const arrayColumns = await ArrayColumns.findOneAndUpdate(
       {
@@ -27,7 +27,7 @@ export const updateArrayColumns = async (data, id) => {
   }
 };
 
-export const addColumn = async (data, id) => {
+const addColumn = async (data, id) => {
   const arrayColumnsObject = await ArrayColumns.find({ _id: id });
   const columnsArray = arrayColumnsObject[0].idColumns;
   const columnExist = columnsArray.includes(data.idColumns);
@@ -49,7 +49,7 @@ export const addColumn = async (data, id) => {
   }
 };
 
-export const removeColumn = async (data, id) => {
+const removeColumn = async (data, id) => {
   try {
     const arrayColumns = await ArrayColumns.findOneAndUpdate(
       {
@@ -64,3 +64,5 @@ export const removeColumn = async (data, id) => {
     return { status: 'invalid', message: err };
   }
 };
+
+module.exports = { createColumns, updateArrayColumns, addColumn, removeColumn };

@@ -1,6 +1,6 @@
-import Section from '../models/section';
+const Section = require('../models/section');
 
-export const createSection = async (data) => {
+const createSection = async (data) => {
   try {
     const section = new Section(data);
     await section.save();
@@ -11,7 +11,7 @@ export const createSection = async (data) => {
   }
 };
 
-export const updateSection = async (data, id) => {
+const updateSection = async (data, id) => {
   try {
     const section = await Section.findOneAndUpdate(
       {
@@ -27,7 +27,7 @@ export const updateSection = async (data, id) => {
   }
 };
 
-export const deleteSection = async (id) => {
+const deleteSection = async (id) => {
   const section = await Section.findOneAndDelete({
     _id: id,
   });
@@ -38,3 +38,5 @@ export const deleteSection = async (id) => {
 
   return { message: 'Section was deleted.' };
 };
+
+module.exports = { createSection, updateSection, deleteSection };

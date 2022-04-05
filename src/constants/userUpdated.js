@@ -1,4 +1,4 @@
-import User from '../models/user';
+const User = require('../models/user');
 
 const userUpdated = async (data, id) => {
   try {
@@ -16,4 +16,4 @@ const userUpdated = async (data, id) => {
   }
 };
 
-export default userUpdated;
+module.exports = userUpdated;

@@ -1,9 +1,9 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { createSection, deleteSection, updateSection } from '../controllers/section.controllers';
-import Section from '../models/section';
+const { createSection, deleteSection, updateSection } = require('../controllers/section.controllers');
+const Section = require('../models/section');
 
-export const sectionRouter = (router) => {
+const sectionRouter = (router) => {
   // endpoint tworzenie sekcji
   router.post('/sections', async (req, res) => {
     const response = await createSection(req.body);
@@ -43,3 +43,6 @@ export const sectionRouter = (router) => {
     }
   });
 };
+
+
+module.exports = sectionRouter;

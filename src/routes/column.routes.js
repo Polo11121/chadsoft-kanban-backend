@@ -1,9 +1,9 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { createColumn, deleteColumn, updateColumn } from '../controllers/column.controllers';
-import Column from '../models/column';
+const { createColumn, deleteColumn, updateColumn } = require('../controllers/column.controllers');
+const Column = require('../models/column');
 
-export const columnRouter = (router) => {
+const columnRouter = (router) => {
   // endpoint tworzenie kolumn
   router.post('/columns', async (req, res) => {
     const response = await createColumn(req.body);
@@ -43,3 +43,6 @@ export const columnRouter = (router) => {
     }
   });
 };
+
+
+module.exports = columnRouter;

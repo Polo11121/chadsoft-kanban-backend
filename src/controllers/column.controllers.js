@@ -1,6 +1,6 @@
-import Column from '../models/column';
+const Column = require('../models/column');
 
-export const createColumn = async (data) => {
+const createColumn = async (data) => {
   try {
     const column = new Column(data);
     await column.save();
@@ -11,7 +11,7 @@ export const createColumn = async (data) => {
   }
 };
 
-export const updateColumn = async (data, id) => {
+const updateColumn = async (data, id) => {
   try {
     const column = await Column.findOneAndUpdate(
       {
@@ -27,7 +27,7 @@ export const updateColumn = async (data, id) => {
   }
 };
 
-export const deleteColumn = async (id) => {
+const deleteColumn = async (id) => {
   const column = await Column.findOneAndDelete({
     _id: id,
   });
@@ -38,3 +38,5 @@ export const deleteColumn = async (id) => {
 
   return { message: 'Column was deleted.' };
 };
+
+module.exports = { createColumn, updateColumn, deleteColumn };

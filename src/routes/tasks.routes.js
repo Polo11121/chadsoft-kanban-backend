@@ -1,8 +1,8 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { addUser, createTask, deleteUser, deleteTask, updateTask } from '../controllers/task.controllers';
+const { addUser, createTask, deleteUser, deleteTask, updateTask } = require('../controllers/task.controllers');
 
-export const taskRouter = (router) => {
+const taskRouter = (router) => {
   // endpoint tworzenie zadań
   router.post('/tasks', async (req, res) => {
     const response = await createTask(req.body);
@@ -54,3 +54,6 @@ export const taskRouter = (router) => {
     return res.status(StatusCodes.OK).json(response);
   });
 };
+
+
+module.exports = taskRouter;

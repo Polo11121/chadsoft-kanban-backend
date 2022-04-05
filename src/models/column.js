@@ -29,4 +29,4 @@ columnSchema.set('toJSON', { virtuals: true });
 
 const Column = mongoose.model('Column', columnSchema);
 
-export default Column;
+module.exports = Column;

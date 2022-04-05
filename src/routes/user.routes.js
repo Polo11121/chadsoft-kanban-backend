@@ -1,10 +1,10 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { createUser, deleteUser, editPassword, editUser, loginUser } from '../controllers/user.controllers';
-import auth from '../middlewares/verifyToken';
-import User from '../models/user';
+const { createUser, deleteUser, editPassword, editUser, loginUser } = require('../controllers/user.controllers');
+const auth = require('../middlewares/verifyToken');
+const User = require('../models/user');
 
-export const userRoutes = (router) => {
+const userRoutes = (router) => {
   router.post('/users', async (req, res) => {
     const response = await createUser(req.body);
 
@@ -73,3 +73,5 @@ export const userRoutes = (router) => {
     }
   });
 };
+
+module.exports = userRoutes;

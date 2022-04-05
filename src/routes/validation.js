@@ -17,7 +17,7 @@ const validateField = {
   }),
 };
 
-export const registerValidation = (data) => {
+const registerValidation = (data) => {
   const schemaUser = Joi.object({
     name: validateField.name.required(),
     photo: Joi.string(),
@@ -28,7 +28,7 @@ export const registerValidation = (data) => {
   return schemaUser.validate(data);
 };
 
-export const loginValidation = (data) => {
+const loginValidation = (data) => {
   const schemaUser = Joi.object({
     email: validateField.email.required(),
     password: Joi.required(),
@@ -37,7 +37,7 @@ export const loginValidation = (data) => {
   return schemaUser.validate(data);
 };
 
-export const editValidation = (data) => {
+const editValidation = (data) => {
   const schemaUser = Joi.object({
     name: validateField.name,
     photo: Joi.string(),
@@ -46,7 +46,7 @@ export const editValidation = (data) => {
   return schemaUser.validate(data);
 };
 
-export const passwdEditValidation = (data) => {
+const passwdEditValidation = (data) => {
   const schemaUser = Joi.object({
     password: Joi.required(),
     newPassword: validateField.password,
@@ -55,3 +55,5 @@ export const passwdEditValidation = (data) => {
 
   return schemaUser.validate(data);
 };
+
+module.exports = { registerValidation, loginValidation, editValidation, passwdEditValidation };
