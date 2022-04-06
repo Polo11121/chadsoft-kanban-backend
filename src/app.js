@@ -10,7 +10,7 @@ const cors = require('cors');
 const app = express();
 app.use(
   cors({
-    origin: 'http://bille-chadsoft-kanban-board.s3-website-us-east-1.amazonaws.com',
+    origin: ['http://localhost:3000', 'http://bille-chadsoft-kanban-board.s3-website-us-east-1.amazonaws.com'],
   })
 );
 // set security HTTP headers
