@@ -44,5 +44,4 @@ const columnRouter = (router) => {
   });
 };
 
-
 module.exports = columnRouter;

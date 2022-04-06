@@ -1,3 +1,3 @@
 const logger = console;
 
-export default logger;
+module.exports = logger;

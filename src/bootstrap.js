@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-import app from './app';
-import env from './constants/env';
-import logger from './utils/logger';
+const app = require('./app');
+const env = require('./constants/env');
+const logger = require('./utils/logger');
 
 let server;
 
@@ -11,7 +11,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    logger.info('Connected to MongoDB');
+    logger.info(`Connected to MongoDB ${env.MONGODB_URL}`);
 
     server = app.listen(env.PORT || 3001, () => {
       logger.info(`Listening to port ${env.PORT}`);
