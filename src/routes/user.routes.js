@@ -46,8 +46,6 @@ export const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  // Wylogowanie działa poprawnie ale trzeba sprawdzić tak aby wylogować zalogowanego użytkownika.
-
   router.post('/logout', auth, (req, res) => {
     res.clearCookie('auth');
     return res.status(StatusCodes.OK).json({ message: 'Logged out' });
@@ -67,6 +65,15 @@ export const userRoutes = (router) => {
   router.get('/users', async (req, res) => {
     try {
       const user = await User.find();
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  });
+
+  router.get('/users/:id', async (req, res) => {
+    try {
+      const user = await User.findOne({ _id: req.params.id });
       res.status(200).json(user);
     } catch (err) {
       res.status(400).json({ message: err.message });
