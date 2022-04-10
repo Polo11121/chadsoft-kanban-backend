@@ -3,6 +3,9 @@ import Task from '../models/task';
 export const createTask = async (data) => {
   try {
     const task = new Task(data);
+    if (!data.idTask) {
+      task.idTask = task._id.toString();
+    }
     await task.save();
 
     return task;

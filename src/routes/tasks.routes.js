@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addUser, createTask, deleteUser, deleteTask, updateTask } from '../controllers/task.controllers';
+import { addUser, createTask, deleteTask, deleteUser, updateTask } from '../controllers/task.controllers';
 
 export const taskRouter = (router) => {
   router.post('/tasks', async (req, res) => {
