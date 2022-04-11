@@ -124,7 +124,7 @@ export const addUser = async (data, id) => {
   const taskObject = await Task.find({ _id: id });
   const userArray = taskObject[0].idMember;
   const userExist = userArray.includes(data.idMember);
-  if (userExist) return { status: 'invalid', message: 'User already added' };
+  if (userExist) return { status: 'invalid', message: 'User is already added to task' };
   const userToBeAdded = await User.find({ _id: data.idMember });
   const currentCountTask = userToBeAdded[0].taskCount;
 
