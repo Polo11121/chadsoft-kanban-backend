@@ -4,7 +4,6 @@ const UserTaskLimitSchema = mongoose.Schema(
   {
     userTaskLimit: {
       type: Number,
-      default: 3,
     },
   },
   { timestamps: true }
