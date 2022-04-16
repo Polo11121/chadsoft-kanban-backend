@@ -21,6 +21,7 @@ export const createUser = async (data) => {
       photo: data.photo,
       email: data.email,
       password: hashedPassword,
+      role: data.role,
     });
 
     return user;
