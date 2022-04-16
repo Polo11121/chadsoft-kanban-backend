@@ -37,7 +37,7 @@ export const columnRouter = (router) => {
     try {
       const column = await Column.find().populate({
         path: 'tasks',
-        select: 'name description idTask idSection idMember',
+        select: 'name description idTask idSection idMember color',
       });
       res.status(200).json(column);
     } catch (err) {
