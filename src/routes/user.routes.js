@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { createUser, deleteUser, editPassword, editUser, loginUser } from '../controllers/user.controllers';
-import auth from '../middlewares/verifyToken';
+// import auth from '../middlewares/verifyToken';
 import User from '../models/user';
 
 export const userRoutes = (router) => {
@@ -26,7 +26,7 @@ export const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  router.patch('/users/:id', auth, async (req, res) => {
+  router.patch('/users/:id', async (req, res) => {
     const response = await editUser(req.body, req.params.id);
 
     if (response.status === 'invalid') {
@@ -36,7 +36,7 @@ export const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  router.patch('/users/:id/password', auth, async (req, res) => {
+  router.patch('/users/:id/password', async (req, res) => {
     const response = await editPassword(req.body, req.params.id);
 
     if (response.status === 'invalid') {
@@ -46,12 +46,12 @@ export const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  router.post('/logout', auth, (req, res) => {
+  router.post('/logout', (req, res) => {
     res.clearCookie('auth');
     return res.status(StatusCodes.OK).json({ message: 'Logged out' });
   });
 
-  router.delete('/users/:id', auth, async (req, res) => {
+  router.delete('/users/:id', async (req, res) => {
     const response = await deleteUser(req.params.id);
     res.clearCookie('auth');
 

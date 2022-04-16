@@ -15,6 +15,10 @@ const TaskSchema = mongoose.Schema(
       ref: 'Column',
       required: true,
     },
+    color: {
+      type: String,
+      required: true,
+    },
     idTask: {
       type: String,
     },
