@@ -4,7 +4,6 @@ const { createSection, deleteSection, updateSection } = require('../controllers/
 const Section = require('../models/section');
 
 const sectionRouter = (router) => {
-  // endpoint tworzenie sekcji
   router.post('/sections', async (req, res) => {
     const response = await createSection(req.body);
     if (response.status === 'invalid') {
@@ -13,7 +12,7 @@ const sectionRouter = (router) => {
 
     return res.status(StatusCodes.CREATED).json(response);
   });
-  // endpoint edycja sekcji
+
   router.put('/sections/:id', async (req, res) => {
     const response = await updateSection(req.body, req.params.id);
 
@@ -23,7 +22,7 @@ const sectionRouter = (router) => {
 
     return res.status(StatusCodes.OK).json(response);
   });
-  // endpoint usuwanie sekcji
+
   router.delete('/sections/:id', async (req, res) => {
     const response = await deleteSection(req.params.id);
 
@@ -33,7 +32,7 @@ const sectionRouter = (router) => {
 
     return res.status(StatusCodes.OK).json(response);
   });
-  // endpoint pobieranie sekcji
+
   router.get('/sections', async (req, res) => {
     try {
       const section = await Section.find();
@@ -43,6 +42,5 @@ const sectionRouter = (router) => {
     }
   });
 };
-
 
 module.exports = sectionRouter;

@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 
 const { createUser, deleteUser, editPassword, editUser, loginUser } = require('../controllers/user.controllers');
-const auth = require('../middlewares/verifyToken');
+// const auth = require('../middlewares/verifyToken');
 const User = require('../models/user');
 
 const userRoutes = (router) => {
@@ -26,7 +26,7 @@ const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  router.patch('/users/:id', auth, async (req, res) => {
+  router.patch('/users/:id', async (req, res) => {
     const response = await editUser(req.body, req.params.id);
 
     if (response.status === 'invalid') {
@@ -36,7 +36,7 @@ const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  router.patch('/users/:id/password', auth, async (req, res) => {
+  router.patch('/users/:id/password', async (req, res) => {
     const response = await editPassword(req.body, req.params.id);
 
     if (response.status === 'invalid') {
@@ -46,14 +46,12 @@ const userRoutes = (router) => {
     return res.status(StatusCodes.CREATED).json(response);
   });
 
-  // Wylogowanie działa poprawnie ale trzeba sprawdzić tak aby wylogować zalogowanego użytkownika.
-
-  router.post('/logout', auth, (req, res) => {
+  router.post('/logout', (req, res) => {
     res.clearCookie('auth');
     return res.status(StatusCodes.OK).json({ message: 'Logged out' });
   });
 
-  router.delete('/users/:id', auth, async (req, res) => {
+  router.delete('/users/:id', async (req, res) => {
     const response = await deleteUser(req.params.id);
     res.clearCookie('auth');
 
@@ -67,6 +65,15 @@ const userRoutes = (router) => {
   router.get('/users', async (req, res) => {
     try {
       const user = await User.find();
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  });
+
+  router.get('/users/:id', async (req, res) => {
+    try {
+      const user = await User.findOne({ _id: req.params.id });
       res.status(200).json(user);
     } catch (err) {
       res.status(400).json({ message: err.message });

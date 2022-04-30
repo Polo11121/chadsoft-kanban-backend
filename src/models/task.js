@@ -15,6 +15,13 @@ const TaskSchema = mongoose.Schema(
       ref: 'Column',
       required: true,
     },
+    color: {
+      type: String,
+      required: true,
+    },
+    idTask: {
+      type: String,
+    },
     idSection: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Section',

@@ -9,6 +9,14 @@ const UserSchema = mongoose.Schema(
     photo: {
       type: String,
     },
+    taskCount: {
+      type: Number,
+      default: 0,
+    },
+    role: {
+      type: String,
+      default: 'Base',
+    },
     email: {
       type: String,
       required: true,

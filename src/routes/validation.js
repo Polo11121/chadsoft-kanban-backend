@@ -23,6 +23,7 @@ const registerValidation = (data) => {
     photo: Joi.string(),
     email: validateField.email.required(),
     password: validateField.password,
+    role: Joi.string(),
   });
 
   return schemaUser.validate(data);
