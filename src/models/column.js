@@ -10,18 +10,15 @@ const columnSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    arrayOfTasks: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Task',
+      default: [],
+      required: true,
+    },
   },
   { timestamps: true }
 );
-
-columnSchema.virtual('tasks', {
-  ref: 'Task',
-  localField: '_id',
-  foreignField: 'column',
-});
-
-columnSchema.set('toObject', { virtuals: true });
-columnSchema.set('toJSON', { virtuals: true });
 
 const Column = mongoose.model('Column', columnSchema);
 

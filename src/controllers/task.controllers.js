@@ -1,9 +1,10 @@
 /* eslint-disable no-restricted-syntax */
+import Column from '../models/column';
 import Task from '../models/task';
 import User from '../models/user';
 
 export const createTask = async (data) => {
-  const userToBeAdded = await User.find({ _id: data.idMember });
+  const userToBeAdded = await User.find({ _id: data.idUser });
 
   try {
     const task = new Task(data);
@@ -19,6 +20,13 @@ export const createTask = async (data) => {
         { new: true }
       );
     });
+    await Column.findOneAndUpdate(
+      {
+        _id: data.column,
+      },
+      { $push: { arrayOfTasks: task._id } },
+      { new: true }
+    );
 
     await task.save();
 
@@ -32,10 +40,10 @@ export const updateTask = async (data, id) => {
   const addedUser = [];
   const deletedUser = [];
   const getTask = await Task.find({ _id: id });
-  const tabOfId = getTask[0].idMember.toString();
+  const tabOfId = getTask[0].idUser.toString();
+  const columnBefroeUpdated = getTask[0].column;
   let tabOfIdSplited = tabOfId.split(',');
-  const newTab = data.idMember;
-
+  const newTab = data.idUser;
   if (tabOfIdSplited[0] === '') {
     tabOfIdSplited = [];
   }
@@ -80,6 +88,22 @@ export const updateTask = async (data, id) => {
         { new: true }
       );
     });
+    if (!(columnBefroeUpdated.toString() === task.column.toString())) {
+      await Column.findOneAndUpdate(
+        {
+          _id: columnBefroeUpdated,
+        },
+        { $pull: { arrayOfTasks: task._id } },
+        { new: true }
+      );
+      await Column.findOneAndUpdate(
+        {
+          _id: task.column,
+        },
+        { $push: { arrayOfTasks: task._id } },
+        { new: true }
+      );
+    }
     if (!task || !task._id) return { status: 'invalid', message: 'Task not found' };
     return { message: 'Updated' };
   } catch (err) {
@@ -89,7 +113,8 @@ export const updateTask = async (data, id) => {
 
 export const deleteTask = async (id) => {
   const getTask = await Task.find({ _id: id });
-  const tabOfId = getTask[0].idMember.toString();
+  const columnBefroeDeleted = getTask[0].column;
+  const tabOfId = getTask[0].idUser.toString();
   let tabOfIdSplited = tabOfId.split(',');
 
   if (tabOfIdSplited[0] === '') {
@@ -112,6 +137,13 @@ export const deleteTask = async (id) => {
         { new: true }
       );
     });
+    await Column.findOneAndUpdate(
+      {
+        _id: columnBefroeDeleted,
+      },
+      { $pull: { arrayOfTasks: task._id } },
+      { new: true }
+    );
 
     if (!task || !task._id) return { status: 'invalid', message: 'Task was not found.' };
     return { message: 'Task was deleted.' };
@@ -122,10 +154,10 @@ export const deleteTask = async (id) => {
 
 export const addUser = async (data, id) => {
   const taskObject = await Task.find({ _id: id });
-  const userArray = taskObject[0].idMember;
-  const userExist = userArray.includes(data.idMember);
+  const userArray = taskObject[0].idUser;
+  const userExist = userArray.includes(data.idUser);
   if (userExist) return { status: 'invalid', message: 'User is already added to task' };
-  const userToBeAdded = await User.find({ _id: data.idMember });
+  const userToBeAdded = await User.find({ _id: data.idUser });
   const currentCountTask = userToBeAdded[0].taskCount;
 
   try {
@@ -133,12 +165,12 @@ export const addUser = async (data, id) => {
       {
         _id: id,
       },
-      { $push: { idMember: data.idMember } },
+      { $push: { idUser: data.idUser } },
       { new: true }
     );
     const user = await User.findOneAndUpdate(
       {
-        _id: data.idMember,
+        _id: data.idUser,
       },
       { taskCount: currentCountTask + 1 },
       { new: true }
@@ -151,7 +183,7 @@ export const addUser = async (data, id) => {
 };
 
 export const deleteUser = async (data, id) => {
-  const userToBeAdded = await User.find({ _id: data.idMember });
+  const userToBeAdded = await User.find({ _id: data.idUser });
   const currentCountTask = userToBeAdded[0].taskCount;
 
   try {
@@ -159,12 +191,12 @@ export const deleteUser = async (data, id) => {
       {
         _id: id,
       },
-      { $pull: { idMember: data.idMember } },
+      { $pull: { idUser: data.idUser } },
       { new: true }
     );
     const user = await User.findOneAndUpdate(
       {
-        _id: data.idMember,
+        _id: data.idUser,
       },
       { taskCount: currentCountTask - 1 },
       { new: true }
