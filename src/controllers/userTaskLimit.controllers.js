@@ -1,6 +1,6 @@
-import UserTaskLimit from '../models/userTaskLimit';
+const UserTaskLimit = require('../models/userTaskLimit');
 
-export const createUserLimit = async (data) => {
+const createUserLimit = async (data) => {
   try {
     const userLimit = new UserTaskLimit(data);
     await userLimit.save();
@@ -11,7 +11,7 @@ export const createUserLimit = async (data) => {
   }
 };
 
-export const updateUserLimit = async (data, id) => {
+const updateUserLimit = async (data, id) => {
   try {
     const userLimit = await UserTaskLimit.findOneAndUpdate(
       {
@@ -26,3 +26,5 @@ export const updateUserLimit = async (data, id) => {
     return { status: 'invalid', message: err };
   }
 };
+
+module.exports = { createUserLimit, updateUserLimit };

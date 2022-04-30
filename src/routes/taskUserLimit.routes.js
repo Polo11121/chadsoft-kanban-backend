@@ -1,9 +1,9 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { createUserLimit, updateUserLimit } from '../controllers/userTaskLimit.controllers';
-import UserTaskLimit from '../models/userTaskLimit';
+const { createUserLimit, updateUserLimit } = require('../controllers/userTaskLimit.controllers');
+const UserTaskLimit = require('../models/userTaskLimit');
 
-export const userTaskRouter = (router) => {
+const userTaskRouter = (router) => {
   router.post('/userTasksLimit', async (req, res) => {
     const response = await createUserLimit(req.body);
     if (response.status === 'invalid') {
@@ -32,3 +32,5 @@ export const userTaskRouter = (router) => {
     }
   });
 };
+
+module.exports = userTaskRouter;
