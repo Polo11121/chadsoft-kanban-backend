@@ -1,60 +1,70 @@
 const mongoose = require('mongoose');
-
-const mongoBD = 'mongodb+srv://root:zdIruBZ6AVnv3jlr@chadsoftkanban.sepk7.mongodb.net/csk?retryWrites=true&w=majority';
-mongoose.connect(mongoBD);
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const Column = require('../models/column');
 
-describe('User model test', () => {
+describe('Column model test', () => {
   beforeAll(async () => {
-    await Column.deleteMany({});
+    const mongoServer = await MongoMemoryServer.create();
+
+    await mongoose.connect(mongoServer.getUri(), { dbName: 'verifyMASTER' });
   });
 
-  afterEach(async () => {
-    await Column.deleteMany({});
-  });
+  afterAll(async () => mongoose.disconnect());
 
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
-
-  it('Has a module', () => {
+  it('Has a model', () => {
     expect(Column).toBeDefined();
   });
 
-  describe('Get column', () => {
-    it('Gets a column', async () => {
-      const column = new Column({ color: '#ccc', name: 'To do', numberOfTasks: 20 });
+  describe('Check a model column', () => {
+    it('Create a column', async () => {
+      const column = new Column({ name: 'To do', numberOfTasks: 20 });
       await column.save();
 
-      const foundColumn = await Column.findOne({ name: 'To do' });
-      const expected = 'To do';
-      const actual = foundColumn.name;
-      expect(actual).toEqual(expected);
+      const foundColumn = await Column.findOne({ id: column._id });
+
+      const expectedName = 'To do';
+      const actualName = foundColumn.name;
+      expect(expectedName).toEqual(actualName);
+
+      const expectedNumberOfTasks = 20;
+      const actualNumberOfTasks = foundColumn.numberOfTasks;
+      expect(expectedNumberOfTasks).toEqual(actualNumberOfTasks);
     });
   });
 
   describe('Save column', () => {
     it('Save a column', async () => {
-      const column = new Column({ color: '#ccc', name: 'To do', numberOfTasks: 20 });
+      const column = new Column({ name: 'To do', numberOfTasks: 20 });
       const savedColumn = await column.save();
 
-      const expected = 'To do';
-      const actual = savedColumn.name;
-      expect(actual).toEqual(expected);
+      const expectedName = 'To do';
+      const actualName = savedColumn.name;
+      expect(expectedName).toEqual(actualName);
+
+      const expectedNumberOfTasks = 20;
+      const actualNumberOfTasks = savedColumn.numberOfTasks;
+      expect(expectedNumberOfTasks).toEqual(actualNumberOfTasks);
     });
   });
 
   describe('Update column', () => {
     it('Update a column', async () => {
-      const column = new Column({ color: '#ccc', name: 'To do', numberOfTasks: 20 });
+      const column = new Column({ name: 'To do', numberOfTasks: 20 });
       await column.save();
 
       column.name = 'Backlog';
+      column.numberOfTasks = 0;
+
       const updateColumn = await column.save();
-      const expected = 'Backlog';
-      const actual = updateColumn.name;
-      expect(actual).toEqual(expected);
+
+      const expectedName = 'Backlog';
+      const actualName = updateColumn.name;
+      expect(expectedName).toEqual(actualName);
+
+      const expectedNumberOfTasks = 0;
+      const actualNumberOfTasks = updateColumn.numberOfTasks;
+      expect(expectedNumberOfTasks).toEqual(actualNumberOfTasks);
     });
   });
 });

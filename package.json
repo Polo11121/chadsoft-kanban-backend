@@ -31,6 +31,7 @@
     "joi": "17.6.0",
     "jsonwebtoken": "8.5.1",
     "mongodb": "4.5.0",
+    "mongodb-memory-server": "8.5.2",
     "mongoose": "^6.2.4"
   },
   "devDependencies": {

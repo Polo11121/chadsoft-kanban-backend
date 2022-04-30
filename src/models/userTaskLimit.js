@@ -11,4 +11,4 @@ const UserTaskLimitSchema = mongoose.Schema(
 
 const UserTaskLimit = mongoose.model('UserTaskLimit', UserTaskLimitSchema);
 
-export default UserTaskLimit;
+module.exports = UserTaskLimit;
