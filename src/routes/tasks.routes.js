@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addUser, createTask, deleteTask, deleteUser, updateTask } from '../controllers/task.controllers';
+import { addUser, createTask, deleteTask, deleteUser, updateTask, updateTaskIndex } from '../controllers/task.controllers';
 import Task from '../models/task';
 
 export const taskRouter = (router) => {
@@ -15,6 +15,16 @@ export const taskRouter = (router) => {
 
   router.put('/tasks/:id', async (req, res) => {
     const response = await updateTask(req.body, req.params.id);
+
+    if (response.status === 'invalid') {
+      return res.status(StatusCodes.BAD_REQUEST).json(response);
+    }
+
+    return res.status(StatusCodes.OK).json(response);
+  });
+
+  router.patch('/tasks/:id', async (req, res) => {
+    const response = await updateTaskIndex(req.body, req.params.id);
 
     if (response.status === 'invalid') {
       return res.status(StatusCodes.BAD_REQUEST).json(response);

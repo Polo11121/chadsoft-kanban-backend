@@ -5,7 +5,9 @@ import User from '../models/user';
 
 export const createTask = async (data) => {
   const userToBeAdded = await User.find({ _id: data.idUser });
-
+  const column = await Column.find({ _id: data.column })
+  const arrayOfTask = column[0].arrayOfTasks
+  const lenOfArray = arrayOfTask.length
   try {
     const task = new Task(data);
     if (!data.idTask) {
@@ -27,7 +29,7 @@ export const createTask = async (data) => {
       { $push: { arrayOfTasks: task._id } },
       { new: true }
     );
-
+    task.index = lenOfArray;
     await task.save();
 
     return task;
@@ -110,6 +112,35 @@ export const updateTask = async (data, id) => {
     return { status: 'invalid', message: err };
   }
 };
+
+export const updateTaskIndex =  async (data, id) => {
+  const column = await Column.find({ _id: data.column })
+  const task = await Task.find({ _id: id })
+  const taskIdBefore = task[0].index;
+  const arrayOfTasks = column[0].arrayOfTasks
+  try {
+    const task = await Task.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      data,
+      { new: true }
+    );
+    arrayOfTasks.splice(taskIdBefore, 1)
+    arrayOfTasks.splice(task.index, 0, task)
+    await Column.findOneAndUpdate(
+      {
+        _id: data.column,
+      },
+      { arrayOfTasks: arrayOfTasks },
+      { new: true }
+    );
+    if (!task || !task._id) return { status: 'invalid', message: 'Task not found' };
+    return { message: 'Updated' };
+  } catch (err) {
+    return { status: 'invalid', message: err };
+  }
+}
 
 export const deleteTask = async (id) => {
   const getTask = await Task.find({ _id: id });

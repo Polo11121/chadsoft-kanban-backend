@@ -32,6 +32,11 @@ const TaskSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    index: {
+      type: Number,
+      default: null,
+      require: true
+    }
   },
   { timestamps: true }
 );
