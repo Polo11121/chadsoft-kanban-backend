@@ -17,8 +17,8 @@ describe('Section router test', () => {
 
   test('GET /api/sections', async () => {
     const section = await Section.create({
-      name: "FrontEnd",
-      taskLimit: 5
+      name: 'FrontEnd',
+      taskLimit: 5,
     });
 
     await request(app)
@@ -39,9 +39,9 @@ describe('Section router test', () => {
 
   test('POST /api/sections', async () => {
     const data = {
-      name: "FrontEnd",
-      taskLimit: 5
-    }
+      name: 'FrontEnd',
+      taskLimit: 5,
+    };
 
     await request(app)
       .post('/api/sections')
@@ -63,9 +63,9 @@ describe('Section router test', () => {
 
   test('POST /api/sections', async () => {
     const data = {
-      name: "FrontEnd",
-      taskLimit: null
-    }
+      name: 'FrontEnd',
+      taskLimit: null,
+    };
 
     await request(app)
       .post('/api/sections')
@@ -80,8 +80,8 @@ describe('Section router test', () => {
   test('POST /api/sections', async () => {
     const data = {
       name: null,
-      taskLimit: 5
-    }
+      taskLimit: 5,
+    };
 
     await request(app)
       .post('/api/sections')
@@ -95,13 +95,13 @@ describe('Section router test', () => {
 
   test('PUT /api/sections/:id', async () => {
     const section = await Section.create({
-      name: "FrontEnd",
-      taskLimit: 5
+      name: 'FrontEnd',
+      taskLimit: 5,
     });
 
     const data = {
-      name: "Backend",
-      taskLimit: 2
+      name: 'Backend',
+      taskLimit: 2,
     };
     await request(app)
       .put('/api/sections/' + section.id)
@@ -124,13 +124,13 @@ describe('Section router test', () => {
 
   test('PUT /api/sections/:id', async () => {
     const section = await Section.create({
-      name: "FrontEnd",
-      taskLimit: 5
+      name: 'FrontEnd',
+      taskLimit: 5,
     });
 
     const data = {
-      name: "Backend",
-      taskLimit: 2
+      name: 'Backend',
+      taskLimit: 2,
     };
 
     await request(app)
@@ -145,8 +145,8 @@ describe('Section router test', () => {
 
   test('DELETE /api/arrayColumns/:id/removeColumn', async () => {
     const section = await Section.create({
-      name: "FrontEnd",
-      taskLimit: 5
+      name: 'FrontEnd',
+      taskLimit: 5,
     });
 
     await request(app)

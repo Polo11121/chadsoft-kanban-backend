@@ -42,6 +42,7 @@ const editValidation = (data) => {
   const schemaUser = Joi.object({
     name: validateField.name,
     photo: Joi.string(),
+    role: Joi.string(),
   });
 
   return schemaUser.validate(data);

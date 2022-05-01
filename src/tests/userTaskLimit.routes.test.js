@@ -34,7 +34,7 @@ describe('Task user limit router test', () => {
         expect(response.body[0].userTaskLimit).toBe(taskLimit.userTaskLimit);
       });
   });
-  
+
   test('POST /api/userTasksLimit', async () => {
     const data = {
       userTaskLimit: 5,

@@ -23,7 +23,7 @@ const userRoutes = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.CREATED).json(response);
+    return res.status(StatusCodes.OK).json(response);
   });
 
   router.patch('/users/:id', async (req, res) => {
@@ -33,7 +33,7 @@ const userRoutes = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.CREATED).json(response);
+    return res.status(StatusCodes.OK).json(response);
   });
 
   router.patch('/users/:id/password', async (req, res) => {
@@ -43,7 +43,7 @@ const userRoutes = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.CREATED).json(response);
+    return res.status(StatusCodes.OK).json(response);
   });
 
   router.post('/logout', (req, res) => {
