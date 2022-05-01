@@ -6,7 +6,6 @@ const columnRouter = require('./column.routes');
 const sectionRouter = require('./section.routes');
 const taskRouter = require('./tasks.routes');
 const userRoutes = require('./user.routes');
-const photoRouter = require('./photo.routes');
 const userTaskRouter = require('./taskUserLimit.routes');
 
 const router = Router();
@@ -18,6 +17,5 @@ columnRouter(router);
 sectionRouter(router);
 userRoutes(router);
 arrayColumnsRouter(router);
-photoRouter(router);
 userTaskRouter(router);
 module.exports = router;

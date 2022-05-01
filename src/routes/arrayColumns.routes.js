@@ -11,7 +11,7 @@ const arrayColumnsRouter = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.OK).json(response);
+    return res.status(StatusCodes.CREATED).json(response);
   });
 
   router.patch('/arrayColumns/:id', async (req, res) => {

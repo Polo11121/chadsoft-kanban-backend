@@ -21,7 +21,7 @@ const updateUserLimit = async (data, id) => {
       { new: true }
     );
     if (!userLimit || !userLimit._id) return { status: 'invalid', message: 'User limit not found' };
-    return { message: 'Updated' };
+    return {data: userLimit, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }

@@ -21,7 +21,7 @@ const updateSection = async (data, id) => {
       { new: true }
     );
     if (!section || !section._id) return { status: 'invalid', message: 'Section not found' };
-    return { message: 'Updated' };
+    return {data: section, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
