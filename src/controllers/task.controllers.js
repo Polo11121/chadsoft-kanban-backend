@@ -5,9 +5,9 @@ import User from '../models/user';
 
 export const createTask = async (data) => {
   const userToBeAdded = await User.find({ _id: data.idUser });
-  const column = await Column.find({ _id: data.column })
-  const arrayOfTask = column[0].arrayOfTasks
-  const lenOfArray = arrayOfTask.length
+  const column = await Column.find({ _id: data.column });
+  const arrayOfTask = column[0].arrayOfTasks;
+  const lenOfArray = arrayOfTask.length;
   try {
     const task = new Task(data);
     if (!data.idTask) {
@@ -113,11 +113,15 @@ export const updateTask = async (data, id) => {
   }
 };
 
-export const updateTaskIndex =  async (data, id) => {
-  const column = await Column.find({ _id: data.column })
-  const task = await Task.find({ _id: id })
+export const updateTaskIndex = async (data, id) => {
+  const column = await Column.find({ _id: data.column });
+  const prevColumn = await Column.find({_id: data.prevColumn})
+  const task = await Task.find({ _id: id });
   const taskIdBefore = task[0].index;
-  const arrayOfTasks = column[0].arrayOfTasks
+  const arrayOfTasks = column[0].arrayOfTasks;
+  const prevArrayOfTasks = prevColumn[0].arrayOfTasks;
+  const idPrevColumn = prevColumn[0]._id.toString();
+  const idColumn = column[0]._id.toString();
   try {
     const task = await Task.findOneAndUpdate(
       {
@@ -126,21 +130,67 @@ export const updateTaskIndex =  async (data, id) => {
       data,
       { new: true }
     );
-    arrayOfTasks.splice(taskIdBefore, 1)
-    arrayOfTasks.splice(task.index, 0, task)
-    await Column.findOneAndUpdate(
-      {
-        _id: data.column,
-      },
-      { arrayOfTasks: arrayOfTasks },
-      { new: true }
-    );
+    // Jeżeli przesuwam w tej samej kolumnie
+    if(idColumn === idPrevColumn){
+      arrayOfTasks.splice(taskIdBefore, 1);
+      arrayOfTasks.splice(task.index, 0, task);
+      arrayOfTasks.map(async (item, index) => {
+        await Task.findOneAndUpdate(
+          {
+            _id: item,
+          },
+          { index: index }
+        );
+      });
+      await Column.findOneAndUpdate(
+        {
+          _id: data.column,
+        },
+        { arrayOfTasks: arrayOfTasks },
+        { new: true }
+      );
+    } else { 
+      // Jeżeli przesówam miedzy innymi kolumnami
+      prevArrayOfTasks.splice(taskIdBefore, 1);
+      arrayOfTasks.splice(task.index, 0, task);
+      arrayOfTasks.map(async (item, index) => {
+        await Task.findOneAndUpdate(
+          {
+            _id: item,
+          },
+          { index: index }
+        );
+      });
+      prevArrayOfTasks.map(async (item, index) => {
+        await Task.findOneAndUpdate(
+          {
+            _id: item,
+          },
+          { index: index }
+        );
+      });
+      await Column.findOneAndUpdate(
+        {
+          _id: data.column,
+        },
+        { arrayOfTasks: arrayOfTasks },
+        { new: true }
+      );
+      await Column.findOneAndUpdate(
+        {
+          _id: data.prevColumn,
+        },
+        { arrayOfTasks: prevArrayOfTasks },
+        { new: true }
+      );
+    }
+    
     if (!task || !task._id) return { status: 'invalid', message: 'Task not found' };
     return { message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
-}
+};
 
 export const deleteTask = async (id) => {
   const getTask = await Task.find({ _id: id });
