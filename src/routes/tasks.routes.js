@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addUser, createTask, deleteTask, deleteUser, updateTask } from '../controllers/task.controllers';
+import { addUser, createTask, deleteTask, deleteUser, updateTask, updateTaskIndex } from '../controllers/task.controllers';
+import Task from '../models/task';
 
 export const taskRouter = (router) => {
   router.post('/tasks', async (req, res) => {
@@ -22,7 +23,17 @@ export const taskRouter = (router) => {
     return res.status(StatusCodes.OK).json(response);
   });
 
-  router.patch('/tasks/:id/addMember', async (req, res) => {
+  router.patch('/tasks/:id', async (req, res) => {
+    const response = await updateTaskIndex(req.body, req.params.id);
+
+    if (response.status === 'invalid') {
+      return res.status(StatusCodes.BAD_REQUEST).json(response);
+    }
+
+    return res.status(StatusCodes.OK).json(response);
+  });
+
+  router.patch('/tasks/:id/addUser', async (req, res) => {
     const response = await addUser(req.body, req.params.id);
 
     if (response.status === 'invalid') {
@@ -32,7 +43,7 @@ export const taskRouter = (router) => {
     return res.status(StatusCodes.OK).json(response);
   });
 
-  router.patch('/tasks/:id/deleteMember', async (req, res) => {
+  router.patch('/tasks/:id/deleteUser', async (req, res) => {
     const response = await deleteUser(req.body, req.params.id);
 
     if (response.status === 'invalid') {
@@ -50,5 +61,14 @@ export const taskRouter = (router) => {
     }
 
     return res.status(StatusCodes.OK).json(response);
+  });
+
+  router.get('/tasks', async (req, res) => {
+    try {
+      const task = await Task.find();
+      res.status(200).json(task);
+    } catch (err) {
+      res.status(400).json({ success: false, message: err.message });
+    }
   });
 };

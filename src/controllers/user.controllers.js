@@ -49,7 +49,7 @@ export const editUser = async (data, id) => {
   const { error } = editValidation(data);
   if (error) return { status: 'invalid', message: error.details[0].message };
 
-  return userUpdated({ name: data.name, photo: data.photo }, id);
+  return userUpdated({ name: data.name, photo: data.photo, role: data.role }, id);
 };
 
 export const editPassword = async (data, id) => {
