@@ -35,12 +35,12 @@ const TaskSchema = mongoose.Schema(
     index: {
       type: Number,
       default: null,
-      require: true
-    }
+      require: true,
+    },
   },
   { timestamps: true }
 );
 
 const Task = mongoose.model('Task', TaskSchema);
 
-export default Task;
+module.exports = Task;

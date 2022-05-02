@@ -1,9 +1,14 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { addColumn, createColumns, removeColumn, updateArrayColumns } from '../controllers/arrayColumns.controllers';
-import ArrayColumns from '../models/arrayColumns';
+const {
+  addColumn,
+  createColumns,
+  removeColumn,
+  updateArrayColumns,
+} = require('../controllers/arrayColumns.controllers');
+const ArrayColumns = require('../models/arrayColumns');
 
-export const arrayColumnsRouter = (router) => {
+const arrayColumnsRouter = (router) => {
   router.post('/arrayColumns', async (req, res) => {
     const response = await createColumns(req.body, req.params.id);
 
@@ -11,7 +16,7 @@ export const arrayColumnsRouter = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.OK).json(response);
+    return res.status(StatusCodes.CREATED).json(response);
   });
 
   router.patch('/arrayColumns/:id', async (req, res) => {
@@ -53,3 +58,5 @@ export const arrayColumnsRouter = (router) => {
     }
   });
 };
+
+module.exports = arrayColumnsRouter;

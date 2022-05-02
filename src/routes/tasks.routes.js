@@ -1,9 +1,16 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { addUser, createTask, deleteTask, deleteUser, updateTask, updateTaskIndex } from '../controllers/task.controllers';
-import Task from '../models/task';
+const {
+  addUser,
+  createTask,
+  deleteUser,
+  deleteTask,
+  updateTask,
+  updateTaskIndex,
+} = require('../controllers/task.controllers');
+const Task = require('../models/task');
 
-export const taskRouter = (router) => {
+const taskRouter = (router) => {
   router.post('/tasks', async (req, res) => {
     const response = await createTask(req.body);
     if (response.status === 'invalid') {
@@ -72,3 +79,5 @@ export const taskRouter = (router) => {
     }
   });
 };
+
+module.exports = taskRouter;

@@ -1,6 +1,6 @@
-import ArrayColumns from '../models/arrayColumns';
+const ArrayColumns = require('../models/arrayColumns');
 
-export const createColumns = async (data) => {
+const createColumns = async (data) => {
   try {
     const column = new ArrayColumns(data);
     await column.save();
@@ -11,7 +11,7 @@ export const createColumns = async (data) => {
   }
 };
 
-export const updateArrayColumns = async (data, id) => {
+const updateArrayColumns = async (data, id) => {
   try {
     const arrayColumns = await ArrayColumns.findOneAndUpdate(
       {
@@ -21,13 +21,13 @@ export const updateArrayColumns = async (data, id) => {
       { new: true }
     );
     if (!arrayColumns || !arrayColumns._id) return { status: 'invalid', message: 'ArrayColumns not found' };
-    return { message: 'Updated' };
+    return { data: arrayColumns, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
 
-export const addColumn = async (data, id) => {
+const addColumn = async (data, id) => {
   const arrayColumnsObject = await ArrayColumns.find({ _id: id });
   const columnsArray = arrayColumnsObject[0].idColumns;
   const columnExist = columnsArray.includes(data.idColumns);
@@ -43,13 +43,19 @@ export const addColumn = async (data, id) => {
       { new: true }
     );
     if (!arrayColumns || !arrayColumns._id) return { status: 'invalid', message: 'ArrayColumns not found' };
-    return { message: 'Updated' };
+    return { data: arrayColumns, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
 
-export const removeColumn = async (data, id) => {
+const removeColumn = async (data, id) => {
+  const arrayColumnsObject = await ArrayColumns.find({ _id: id });
+  const columnsArray = arrayColumnsObject[0].idColumns;
+  const columnExist = columnsArray.includes(data.idColumns);
+
+  if (!columnExist) return { status: 'invalid', message: 'Column not found' };
+
   try {
     const arrayColumns = await ArrayColumns.findOneAndUpdate(
       {
@@ -59,8 +65,10 @@ export const removeColumn = async (data, id) => {
       { new: true }
     );
     if (!arrayColumns || !arrayColumns._id) return { status: 'invalid', message: 'ArrayColumns not found' };
-    return { message: 'Deleted' };
+    return { data: arrayColumns, message: 'Deleted' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
+
+module.exports = { createColumns, updateArrayColumns, addColumn, removeColumn };

@@ -1,4 +1,4 @@
-import User from '../models/user';
+const User = require('../models/user');
 
 const userUpdated = async (data, id) => {
   try {
@@ -10,10 +10,10 @@ const userUpdated = async (data, id) => {
       { new: true }
     );
     if (!user) return { status: 'invalid', message: 'User not found' };
-    return { message: 'Updated' };
+    return { data: user, message: 'Updated' };
   } catch {
     return { status: 'invalid', message: 'User not found' };
   }
 };
 
-export default userUpdated;
+module.exports = userUpdated;

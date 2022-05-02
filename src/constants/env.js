@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import Joi from 'joi';
+const dotenv = require('dotenv');
+const Joi = require('joi');
 
 dotenv.config();
 
@@ -21,4 +21,4 @@ const env = {
   MONGODB_URL: envVars.MONGODB_URL,
 };
 
-export default env;
+module.exports = env;

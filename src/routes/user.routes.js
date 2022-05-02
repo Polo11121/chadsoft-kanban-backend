@@ -1,10 +1,10 @@
-import { StatusCodes } from 'http-status-codes';
+const { StatusCodes } = require('http-status-codes');
 
-import { createUser, deleteUser, editPassword, editUser, loginUser } from '../controllers/user.controllers';
-// import auth from '../middlewares/verifyToken';
-import User from '../models/user';
+const { createUser, deleteUser, editPassword, editUser, loginUser } = require('../controllers/user.controllers');
+// const auth = require('../middlewares/verifyToken');
+const User = require('../models/user');
 
-export const userRoutes = (router) => {
+const userRoutes = (router) => {
   router.post('/users', async (req, res) => {
     const response = await createUser(req.body);
 
@@ -23,7 +23,7 @@ export const userRoutes = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.CREATED).json(response);
+    return res.status(StatusCodes.OK).json(response);
   });
 
   router.patch('/users/:id', async (req, res) => {
@@ -33,7 +33,7 @@ export const userRoutes = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.CREATED).json(response);
+    return res.status(StatusCodes.OK).json(response);
   });
 
   router.patch('/users/:id/password', async (req, res) => {
@@ -43,7 +43,7 @@ export const userRoutes = (router) => {
       return res.status(StatusCodes.BAD_REQUEST).json(response);
     }
 
-    return res.status(StatusCodes.CREATED).json(response);
+    return res.status(StatusCodes.OK).json(response);
   });
 
   router.post('/logout', (req, res) => {
@@ -80,3 +80,5 @@ export const userRoutes = (router) => {
     }
   });
 };
+
+module.exports = userRoutes;

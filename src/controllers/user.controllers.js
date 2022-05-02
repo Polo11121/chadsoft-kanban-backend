@@ -1,11 +1,11 @@
-import bcrypt from 'bcryptjs';
-import jsonwebtoken from 'jsonwebtoken';
+const bcrypt = require('bcryptjs');
+const jsonwebtoken = require('jsonwebtoken');
 
-import userUpdated from '../constants/userUpdated';
-import User from '../models/user';
-import { editValidation, loginValidation, passwdEditValidation, registerValidation } from '../routes/validation';
+const userUpdated = require('../constants/userUpdated');
+const User = require('../models/user');
+const { editValidation, loginValidation, passwdEditValidation, registerValidation } = require('../routes/validation');
 
-export const createUser = async (data) => {
+const createUser = async (data) => {
   const { error } = registerValidation(data);
   if (error) return { status: 'invalid', message: error.details[0].message };
 
@@ -30,7 +30,7 @@ export const createUser = async (data) => {
   }
 };
 
-export const loginUser = async (data) => {
+const loginUser = async (data) => {
   const { error } = loginValidation(data);
   if (error) return { status: 'invalid', message: error.details[0].message };
 
@@ -45,14 +45,14 @@ export const loginUser = async (data) => {
   return { id: activeUser[0].id, token, message: `Welcome ${activeUser[0].name}` };
 };
 
-export const editUser = async (data, id) => {
+const editUser = async (data, id) => {
   const { error } = editValidation(data);
   if (error) return { status: 'invalid', message: error.details[0].message };
 
   return userUpdated({ name: data.name, photo: data.photo, role: data.role }, id);
 };
 
-export const editPassword = async (data, id) => {
+const editPassword = async (data, id) => {
   const { error } = passwdEditValidation(data);
   if (error) return { status: 'invalid', message: error.details[0].message };
 
@@ -75,7 +75,7 @@ export const editPassword = async (data, id) => {
   return userUpdated({ password: newPassword }, id);
 };
 
-export const deleteUser = async (id) => {
+const deleteUser = async (id) => {
   const userExist = await User.findOne({ _id: id });
 
   if (!userExist) return { status: 'invalid', message: 'User not found' };
@@ -86,3 +86,5 @@ export const deleteUser = async (id) => {
 
   return { message: 'The account has been deleted' };
 };
+
+module.exports = { createUser, loginUser, editUser, editPassword, deleteUser };

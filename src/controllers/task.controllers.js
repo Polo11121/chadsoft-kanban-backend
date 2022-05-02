@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-syntax */
-import Column from '../models/column';
-import Task from '../models/task';
-import User from '../models/user';
+const Column = require('../models/column');
+const Task = require('../models/task');
+const User = require('../models/user');
 
-export const createTask = async (data) => {
+const createTask = async (data) => {
   const userToBeAdded = await User.find({ _id: data.idUser });
   const column = await Column.find({ _id: data.column });
   const arrayOfTask = column[0].arrayOfTasks;
@@ -38,10 +38,11 @@ export const createTask = async (data) => {
   }
 };
 
-export const updateTask = async (data, id) => {
+const updateTask = async (data, id) => {
   const addedUser = [];
   const deletedUser = [];
   const getTask = await Task.find({ _id: id });
+  if (getTask[0] === undefined) return { status: 'invalid', message: 'Task was not found.' };
   const tabOfId = getTask[0].idUser.toString();
   const columnBefroeUpdated = getTask[0].column;
   let tabOfIdSplited = tabOfId.split(',');
@@ -107,16 +108,17 @@ export const updateTask = async (data, id) => {
       );
     }
     if (!task || !task._id) return { status: 'invalid', message: 'Task not found' };
-    return { message: 'Updated' };
+    return { data: task, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
 
-export const updateTaskIndex = async (data, id) => {
-  const column = await Column.find({ _id: data.column });
-  const prevColumn = await Column.find({_id: data.prevColumn})
+const updateTaskIndex = async (data, id) => {
   const task = await Task.find({ _id: id });
+  if (task[0] === undefined) return { status: 'invalid', message: 'Task was not found.' };
+  const column = await Column.find({ _id: data.column });
+  const prevColumn = await Column.find({ _id: data.prevColumn });
   const taskIdBefore = task[0].index;
   const arrayOfTasks = column[0].arrayOfTasks;
   const prevArrayOfTasks = prevColumn[0].arrayOfTasks;
@@ -131,7 +133,7 @@ export const updateTaskIndex = async (data, id) => {
       { new: true }
     );
     // Jeżeli przesuwam w tej samej kolumnie
-    if(idColumn === idPrevColumn){
+    if (idColumn === idPrevColumn) {
       arrayOfTasks.splice(taskIdBefore, 1);
       arrayOfTasks.splice(task.index, 0, task);
       arrayOfTasks.map(async (item, index) => {
@@ -149,8 +151,8 @@ export const updateTaskIndex = async (data, id) => {
         { arrayOfTasks: arrayOfTasks },
         { new: true }
       );
-    } else { 
-      // Jeżeli przesówam miedzy innymi kolumnami
+    } else {
+      // Jeżeli przesuwam miedzy innymi kolumnami
       prevArrayOfTasks.splice(taskIdBefore, 1);
       arrayOfTasks.splice(task.index, 0, task);
       arrayOfTasks.map(async (item, index) => {
@@ -184,16 +186,17 @@ export const updateTaskIndex = async (data, id) => {
         { new: true }
       );
     }
-    
+
     if (!task || !task._id) return { status: 'invalid', message: 'Task not found' };
-    return { message: 'Updated' };
+    return { data: task, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
 
-export const deleteTask = async (id) => {
+const deleteTask = async (id) => {
   const getTask = await Task.find({ _id: id });
+  if (getTask[0] === undefined) return { status: 'invalid', message: 'Task was not found.' };
   const columnBefroeDeleted = getTask[0].column;
   const tabOfId = getTask[0].idUser.toString();
   let tabOfIdSplited = tabOfId.split(',');
@@ -208,6 +211,7 @@ export const deleteTask = async (id) => {
     const task = await Task.findOneAndDelete({
       _id: id,
     });
+    if (!task || !task._id) return { status: 'invalid', message: 'Task was not found.' };
 
     userToBeDeleted.map(async (taskCou) => {
       await User.findOneAndUpdate(
@@ -225,16 +229,15 @@ export const deleteTask = async (id) => {
       { $pull: { arrayOfTasks: task._id } },
       { new: true }
     );
-
-    if (!task || !task._id) return { status: 'invalid', message: 'Task was not found.' };
     return { message: 'Task was deleted.' };
   } catch (err) {
     return { message: err };
   }
 };
 
-export const addUser = async (data, id) => {
+const addUser = async (data, id) => {
   const taskObject = await Task.find({ _id: id });
+  if (taskObject[0] === undefined) return { status: 'invalid', message: 'Task was not found.' };
   const userArray = taskObject[0].idUser;
   const userExist = userArray.includes(data.idUser);
   if (userExist) return { status: 'invalid', message: 'User is already added to task' };
@@ -257,14 +260,15 @@ export const addUser = async (data, id) => {
       { new: true }
     );
     if (!task || !task._id || !user) return { status: 'invalid', message: 'Task not found' };
-    return { message: 'Updated' };
+    return { data: task, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
 
-export const deleteUser = async (data, id) => {
+const deleteUser = async (data, id) => {
   const userToBeAdded = await User.find({ _id: data.idUser });
+  if (userToBeAdded[0] === undefined) return { status: 'invalid', message: 'User was not found.' };
   const currentCountTask = userToBeAdded[0].taskCount;
 
   try {
@@ -283,8 +287,10 @@ export const deleteUser = async (data, id) => {
       { new: true }
     );
     if (!task || !task._id || !user) return { status: 'invalid', message: 'Task not found' };
-    return { message: 'Deleted' };
+    return { data: task, message: 'Deleted' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
 };
+
+module.exports = { createTask, updateTask, deleteTask, addUser, deleteUser, updateTaskIndex };

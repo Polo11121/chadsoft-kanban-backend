@@ -1,9 +1,9 @@
-import compression from 'compression';
-import express from 'express';
-import helmet from 'helmet';
+const compression = require('compression');
+const express = require('express');
+const helmet = require('helmet');
 
-import env from './constants/env';
-import routes from './routes';
+const env = require('./constants/env');
+const routes = require('./routes');
 
 const cors = require('cors');
 
@@ -33,4 +33,4 @@ app.use(compression());
 // api routes
 app.use('/api', routes);
 
-export default app;
+module.exports = app;

@@ -1,12 +1,12 @@
-import cookieParser from 'cookie-parser';
-import { Router } from 'express';
+const cookieParser = require('cookie-parser');
+const { Router } = require('express');
 
-import { arrayColumnsRouter } from './arrayColumns.routes';
-import { columnRouter } from './column.routes';
-import { sectionRouter } from './section.routes';
-import { taskRouter } from './tasks.routes';
-import { userTaskRouter } from './taskUserLimit.routes';
-import { userRoutes } from './user.routes';
+const arrayColumnsRouter = require('./arrayColumns.routes');
+const columnRouter = require('./column.routes');
+const sectionRouter = require('./section.routes');
+const taskRouter = require('./tasks.routes');
+const userRoutes = require('./user.routes');
+const userTaskRouter = require('./taskUserLimit.routes');
 
 const router = Router();
 
@@ -18,4 +18,4 @@ sectionRouter(router);
 userRoutes(router);
 arrayColumnsRouter(router);
 userTaskRouter(router);
-export default router;
+module.exports = router;
