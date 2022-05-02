@@ -56,7 +56,7 @@ describe('Array of Columns router test', () => {
       });
   });
 
-  test('POST /api/arrayColumns', async () => {
+  test('POST BAD_REQUEST /api/arrayColumns', async () => {
     const data = {
       idColumns: null,
     };
@@ -96,7 +96,7 @@ describe('Array of Columns router test', () => {
       });
   });
 
-  test('PATCH /api/arrayColumns/:id', async () => {
+  test('PATCH BAD_REQUEST /api/arrayColumns/:id', async () => {
     const array = await ArrayColumns.create({
       idColumns: ['dasdq23'],
     });
@@ -144,7 +144,7 @@ describe('Array of Columns router test', () => {
       });
   });
 
-  test('PATCH /api/arrayColumns/:id/addColumn', async () => {
+  test('PATCH BAD_REQUEST /api/arrayColumns/:id/addColumn', async () => {
     const array = await ArrayColumns.create({
       idColumns: ['dasdq23', 'SiemanoKolano'],
     });
@@ -189,7 +189,7 @@ describe('Array of Columns router test', () => {
       });
   });
 
-  test('PATCH /api/arrayColumns/:id/removeColumn', async () => {
+  test('PATCH BAD_REQUEST /api/arrayColumns/:id/removeColumn', async () => {
     const array = await ArrayColumns.create({
       idColumns: ['dasdq23'],
     });

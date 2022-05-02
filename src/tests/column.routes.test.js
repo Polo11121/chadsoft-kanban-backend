@@ -66,7 +66,7 @@ describe('Columns router test', () => {
       });
   });
 
-  test('POST /api/columns', async () => {
+  test('POST BAD_REQUEST /api/columns', async () => {
     const data = {
       name: 'Test',
       arrayOfTasks: ['62604e7108af9e84d7366221'],
@@ -115,7 +115,7 @@ describe('Columns router test', () => {
       });
   });
 
-  test('PUT /api/columns/:id', async () => {
+  test('PUT BAD_REQUEST /api/columns/:id', async () => {
     const column = await Column.create({
       name: 'Test',
       numberOfTasks: 20,
@@ -153,7 +153,7 @@ describe('Columns router test', () => {
       });
   });
 
-  test('DELETE /api/columns/:id', async () => {
+  test('DELETE BAD_REQUEST /api/columns/:id', async () => {
     const column = await Column.create({
       name: 'Test1',
       numberOfTasks: 20,

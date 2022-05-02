@@ -61,7 +61,7 @@ describe('Section router test', () => {
       });
   });
 
-  test('POST /api/sections', async () => {
+  test('POST BAD_REQUEST /api/sections', async () => {
     const data = {
       name: 'FrontEnd',
       taskLimit: null,
@@ -77,7 +77,7 @@ describe('Section router test', () => {
       });
   });
 
-  test('POST /api/sections', async () => {
+  test('POST BAD_REQUEST /api/sections', async () => {
     const data = {
       name: null,
       taskLimit: 5,
@@ -122,7 +122,7 @@ describe('Section router test', () => {
       });
   });
 
-  test('PUT /api/sections/:id', async () => {
+  test('PUT BAD_REQUEST /api/sections/:id', async () => {
     const section = await Section.create({
       name: 'FrontEnd',
       taskLimit: 5,

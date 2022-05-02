@@ -83,7 +83,7 @@ describe('Task user limit router test', () => {
       });
   });
 
-  test('PUT /api/userTasksLimit/:id', async () => {
+  test('PUT BAD_REQUEST /api/userTasksLimit/:id', async () => {
     const taskLimit = await UserTaskLimit.create({
       userTaskLimit: 5,
     });

@@ -107,7 +107,7 @@ describe('User router test', () => {
       });
   });
 
-  test('POST /api/users', async () => {
+  test('POST BAD_REQUEST /api/users', async () => {
     const data = {
       name: 'Patryk',
       photo: 'UrlPhoto',
@@ -126,7 +126,7 @@ describe('User router test', () => {
       });
   });
 
-  test('POST /api/users', async () => {
+  test('POST BAD_REQUEST /api/users', async () => {
     const data = {
       name: 'Patryk',
       photo: 'UrlPhoto',
@@ -145,7 +145,7 @@ describe('User router test', () => {
       });
   });
 
-  test('POST /api/users', async () => {
+  test('POST BAD_REQUEST /api/users', async () => {
     const data = {
       name: 'Patryk',
       photo: 'UrlPhoto',
@@ -163,7 +163,7 @@ describe('User router test', () => {
       });
   });
 
-  test('POST /api/users', async () => {
+  test('POST BAD_REQUEST /api/users', async () => {
     const data = {
       name: 'Patryk',
       photo: 'UrlPhoto',
@@ -181,7 +181,7 @@ describe('User router test', () => {
       });
   });
 
-  test('POST /api/users', async () => {
+  test('POST BAD_REQUEST /api/users', async () => {
     const data = {
       photo: 'UrlPhoto',
       email: 'patrykKoksik@gmail.com',
@@ -216,7 +216,7 @@ describe('User router test', () => {
       });
   });
 
-  test('POST /api/login', async () => {
+  test('POST BAD_REQUEST /api/login', async () => {
     const data = {
       email: 'patrykKox@gmail.com',
       password: 'Patryk1234',
@@ -306,7 +306,7 @@ describe('User router test', () => {
       });
   });
 
-  test('PATCH /api/users/:id/password', async () => {
+  test('PATCH BAD_REQUEST /api/users/:id/password', async () => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash('Patryk123', salt);
 
@@ -332,7 +332,7 @@ describe('User router test', () => {
       });
   });
 
-  test('PATCH /api/users/:id/password', async () => {
+  test('PATCH BAD_REQUEST /api/users/:id/password', async () => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash('Patryk123', salt);
 
@@ -358,7 +358,7 @@ describe('User router test', () => {
       });
   });
 
-  test('PATCH /api/users/:id/password', async () => {
+  test('PATCH BAD_REQUEST /api/users/:id/password', async () => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash('Patryk123', salt);
 
@@ -411,7 +411,7 @@ describe('User router test', () => {
       });
   });
 
-  test('DELETE /api/users/:id', async () => {
+  test('DELETE BAD_REQUEST /api/users/:id', async () => {
     const user = await User.create({
       name: 'Patryk',
       photo: 'UrlPhoto',

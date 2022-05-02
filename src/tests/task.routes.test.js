@@ -110,7 +110,7 @@ describe('Tasks router test', () => {
       });
   });
 
-  test('POST /api/tasks', async () => {
+  test('POST BAD_REQUEST /api/tasks', async () => {
     const user = await User.create({
       email: 'patryk@gmail.com',
       password: 'Patryk123',
@@ -209,7 +209,7 @@ describe('Tasks router test', () => {
       });
   });
 
-  test('PUT /api/tasks/:id', async () => {
+  test('PUT BAD_REQUEST /api/tasks/:id', async () => {
     const task = await Task.create({
       name: 'Test',
       description: 'Opis taska',
@@ -294,7 +294,7 @@ describe('Tasks router test', () => {
       });
   });
 
-  test('PATCH /api/tasks/:id', async () => {
+  test('PATCH BAD_REQUEST /api/tasks/:id', async () => {
     const task = await Task.create({
       name: 'Test',
       description: 'Opis taska',
@@ -371,7 +371,7 @@ describe('Tasks router test', () => {
       });
   });
 
-  test('PATCH /api/tasks/:id/addUser', async () => {
+  test('PATCH BAD_REQUEST /api/tasks/:id/addUser', async () => {
     const task = await Task.create({
       name: 'Test',
       description: 'Opis taska',
@@ -445,7 +445,7 @@ describe('Tasks router test', () => {
       });
   });
 
-  test('PATCH /api/tasks/:id/deleteUser', async () => {
+  test('PATCH BAD_REQUEST /api/tasks/:id/deleteUser', async () => {
     const task = await Task.create({
       name: 'Test',
       description: 'Opis taska',
@@ -490,7 +490,7 @@ describe('Tasks router test', () => {
       });
   });
 
-  test('DELETE /api/tasks/:id', async () => {
+  test('DELETE BAD_REQUEST /api/tasks/:id', async () => {
     const task = await Task.create({
       name: 'Test',
       description: 'Opis taska',
