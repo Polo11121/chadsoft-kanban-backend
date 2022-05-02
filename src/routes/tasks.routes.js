@@ -1,6 +1,13 @@
 const { StatusCodes } = require('http-status-codes');
 
-const { addUser, createTask, deleteUser, deleteTask, updateTask, updateTaskIndex } = require('../controllers/task.controllers');
+const {
+  addUser,
+  createTask,
+  deleteUser,
+  deleteTask,
+  updateTask,
+  updateTaskIndex,
+} = require('../controllers/task.controllers');
 const Task = require('../models/task');
 
 const taskRouter = (router) => {

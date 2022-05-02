@@ -21,7 +21,7 @@ const updateArrayColumns = async (data, id) => {
       { new: true }
     );
     if (!arrayColumns || !arrayColumns._id) return { status: 'invalid', message: 'ArrayColumns not found' };
-    return {data: arrayColumns, message: 'Updated' };
+    return { data: arrayColumns, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
@@ -43,7 +43,7 @@ const addColumn = async (data, id) => {
       { new: true }
     );
     if (!arrayColumns || !arrayColumns._id) return { status: 'invalid', message: 'ArrayColumns not found' };
-    return {data: arrayColumns, message: 'Updated' };
+    return { data: arrayColumns, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
@@ -65,7 +65,7 @@ const removeColumn = async (data, id) => {
       { new: true }
     );
     if (!arrayColumns || !arrayColumns._id) return { status: 'invalid', message: 'ArrayColumns not found' };
-    return {data: arrayColumns, message: 'Deleted' };
+    return { data: arrayColumns, message: 'Deleted' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }

@@ -1,6 +1,11 @@
 const { StatusCodes } = require('http-status-codes');
 
-const { addColumn, createColumns, removeColumn, updateArrayColumns } = require('../controllers/arrayColumns.controllers');
+const {
+  addColumn,
+  createColumns,
+  removeColumn,
+  updateArrayColumns,
+} = require('../controllers/arrayColumns.controllers');
 const ArrayColumns = require('../models/arrayColumns');
 
 const arrayColumnsRouter = (router) => {

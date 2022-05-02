@@ -21,7 +21,7 @@ const updateColumn = async (data, id) => {
       { new: true }
     );
     if (!column) return { status: 'invalid', message: 'Column not found' };
-    return {data: column, message: 'Updated' };
+    return { data: column, message: 'Updated' };
   } catch (err) {
     return { status: 'invalid', message: err };
   }
