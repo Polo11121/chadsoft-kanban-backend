@@ -25,7 +25,7 @@ describe('Task model test', () => {
         color: '#ccc',
         idTask: '12341234',
         idSection: mongoose.Types.ObjectId('4edd40c86762e0fb12000003'),
-        idMember: [mongoose.Types.ObjectId('4edd40c86762e0fb12000003')],
+        idUser: [mongoose.Types.ObjectId('4edd40c86762e0fb12000003')],
       });
       await task.save();
 
@@ -55,9 +55,9 @@ describe('Task model test', () => {
       const actualIdSection = foundTask.idSection.toHexString();
       expect(expectedIdSection).toEqual(actualIdSection);
 
-      const expectedIdMember = mongoose.Types.ObjectId('4edd40c86762e0fb12000003').toHexString();
-      const actualIdMember = foundTask.idMember[0].toHexString();
-      expect(expectedIdMember).toEqual(actualIdMember);
+      const expectedidUser = mongoose.Types.ObjectId('4edd40c86762e0fb12000003').toHexString();
+      const actualidUser = foundTask.idUser[0].toHexString();
+      expect(expectedidUser).toEqual(actualidUser);
     });
   });
 });
