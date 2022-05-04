@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": "14.x",
+    "node": "^14",
     "yarn": "3.0.2"
   },
   "volta": {
@@ -12,7 +12,6 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "build": "build",
     "start": "node src/index.js",
     "lint": "eslint src/",
     "test": "jest",
