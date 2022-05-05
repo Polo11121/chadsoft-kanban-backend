@@ -56,6 +56,21 @@ describe('Task user limit router test', () => {
       });
   });
 
+  test('POST BAD_REQUEST /api/userTasksLimit', async () => {
+    const data = {
+      userTaskLimit: null,
+    };
+
+    await request(app)
+      .post('/api/userTasksLimit')
+      .send(data)
+      .expect(400)
+      .then(async (response) => {
+        // Check the response
+        expect(response.body.message.errors.userTaskLimit.message).toBe('Path `userTaskLimit` is required.');
+      });
+  });
+
   test('PUT /api/userTasksLimit/:id', async () => {
     const taskLimit = await UserTaskLimit.create({
       userTaskLimit: 5,

@@ -269,6 +269,30 @@ describe('User router test', () => {
       });
   });
 
+  test('PATCH BAD_REQUEST /api/users/:id', async () => {
+    const user = await User.create({
+      email: 'patrykK@gmail.com',
+      password: 'Patryk123',
+      name: 'Patryk',
+      photo: 'UrlPhoto',
+    });
+
+    const data = {
+      name: 'Patryk',
+      photo: 'UrlPhoto',
+      role: 'Admin',
+    };
+
+    await request(app)
+      .patch('/api/users/' + mongoose.Types.ObjectId('4edd40c86762e0fb12000003'))
+      .send(data)
+      .expect(400)
+      .then(async (response) => {
+        // Check the response
+        expect(response.body.message).toBe('User not found');
+      });
+  });
+
   test('PATCH /api/users/:id/password', async () => {
     const haslo = 'Patryk123';
     const salt = await bcrypt.genSalt();
@@ -303,6 +327,33 @@ describe('User router test', () => {
         expect(newUser).toBeTruthy();
         expect(newUser.email).toBe(user.email);
         expect(true).toBe(validPass1);
+      });
+  });
+
+  test('PATCH BAD_REQUEST /api/users/:id/password', async () => {
+    const haslo = 'Patryk123';
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(haslo, salt);
+
+    const user = await User.create({
+      email: 'PatrykZmianaHasla@gmail.com',
+      password: hashedPassword,
+      name: 'Patryk',
+    });
+
+    const data = {
+      password: 'Patryk123',
+      newPassword: 'Patryk1234',
+      newPasswordRepeat: 'Patryk1234',
+    };
+
+    await request(app)
+      .patch(`/api/users/${mongoose.Types.ObjectId('4edd40c86762e0fb12000003')}/password`)
+      .send(data)
+      .expect(400)
+      .then(async (response) => {
+        // Check the response
+        expect(response.body.message).toBe('User not found.');
       });
   });
 
