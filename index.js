@@ -2,8 +2,8 @@ const compression = require('compression');
 const express = require('express');
 const helmet = require('helmet');
 
-const env = require('./constants/env');
-const routes = require('./routes');
+const env = require('./src/constants/env');
+const routes = require('./src/routes');
 
 const cors = require('cors');
 
